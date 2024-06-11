@@ -55,11 +55,11 @@ def sign_up():
                         flash('You cannot use bookmyshow domain for other purposes', category='warning')
                         return render_template('sign_up.html', user = current_user)
                     else:
-                        new_user = RegisteredUser(email = email, name = name, password = generate_password_hash(password1, method='sha256'), is_theatre_admin = False, is_super_admin = True)
+                        new_user = RegisteredUser(email = email, name = name, password = generate_password_hash(password1), is_theatre_admin = False, is_super_admin = True)
                 elif user_type == "theatre_admin":
-                    new_user = RegisteredUser(email = email, name = name, password = generate_password_hash(password1, method='sha256'), is_theatre_admin = True, is_super_admin = False)
+                    new_user = RegisteredUser(email = email, name = name, password = generate_password_hash(password1), is_theatre_admin = True, is_super_admin = False)
                 else:
-                    new_user = RegisteredUser(email = email, name = name, password = generate_password_hash(password1, method='sha256'), is_theatre_admin = False, is_super_admin = False)
+                    new_user = RegisteredUser(email = email, name = name, password = generate_password_hash(password1), is_theatre_admin = False, is_super_admin = False)
                 print(new_user)
                 db.session.add(new_user)
                 db.session.commit()

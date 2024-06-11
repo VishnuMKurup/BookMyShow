@@ -29,21 +29,23 @@ BookMyShow is an advanced movie booking system designed to provide a seamless ex
 ## Setup and Installation
 
 1. Clone the repository:
+    ```bash
     git clone <repo-url>
-
+    ```
 2. Install the required packages:
-
+    ```bash
     pip install flask
     pip install Flask-SQLAlchemy
     pip install flask-login
- 
+    ```
    If you encounter a "No Module found" error, install the missing module:
+    ```bash
     pip install <module-name>
-
+    ```
 3. Run the app:
-
+    ```bash
     python main.py
-
+    ```
 
 ## Requirements
 - Flask
@@ -52,5 +54,5 @@ BookMyShow is an advanced movie booking system designed to provide a seamless ex
 
 ## Running the App
 To run the application, execute the following command in your terminal:
-
+```bash
 python main.py

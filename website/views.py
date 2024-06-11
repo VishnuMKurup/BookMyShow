@@ -139,12 +139,13 @@ def book_ticket(id):
             print(theater.name)
             ticket_no_of_seats = request.form.get('no_of_seats')
             # update the number of seats
-            show_to_book.seats_available = int(show_to_book.seats_available) - int(ticket_no_of_seats)
+            if show_to_book.seats_available > 0:
+               show_to_book.seats_available = int(show_to_book.seats_available) - int(ticket_no_of_seats)
 
-            new_ticket = Ticket(show_booked = show_to_book.id, movie_booked = show_to_book.movie_screened, theater_booked = show_to_book.theater_screened_in, user = current_user.id, movie_name = show_to_book.movie, theater_name = show_to_book.theater, theater_address = theater.address, theater_address_link = theater.location, no_of_seats = ticket_no_of_seats, total_cost = int(show_to_book.cost_per_seat) * int(ticket_no_of_seats), show_timinig = show_to_book.datetime_screened)
+               new_ticket = Ticket(show_booked = show_to_book.id, movie_booked = show_to_book.movie_screened, theater_booked = show_to_book.theater_screened_in, user = current_user.id, movie_name = show_to_book.movie, theater_name = show_to_book.theater, theater_address = theater.address, theater_address_link = theater.location, no_of_seats = ticket_no_of_seats, total_cost = int(show_to_book.cost_per_seat) * int(ticket_no_of_seats), show_timinig = show_to_book.datetime_screened)
             
-            db.session.add(new_ticket)
-            db.session.commit()
+               db.session.add(new_ticket)
+               db.session.commit()
 
             flash('Your Show is being added', category='success')
             return redirect(url_for('views.my_tickets'))
@@ -163,19 +164,18 @@ def add_shows():
         print('reached 120')
         if request.method == 'POST':
             print('reached 122')
-            show_movie_screened = Movie.query.filter_by(title = request.form.get('movie_screened')).first().id
+            show_movie_screened = Movie.query.filter_by(title = request.form.get('movie_screened')).first().id            
             if show_movie_screened:
-                show_theater_screened_in = request.form.get('theater_screened_in')
+                show_theater_screened_in = int(request.form.get('theater_screened_in'))
                 show_movie = request.form.get('movie_screened')
                 show_theater = Theaters.query.filter_by(id = request.form.get('theater_screened_in')).first()
                 show_date_time_screened = datetime.strptime(request.form.get('date_time_screened'), '%Y-%m-%dT%H:%M')
-                show_seats_available = request.form.get('seats_available')
+                show_seats_available = int(request.form.get('seats_available'))
                 show_cost_per_seat = request.form.get('cost_per_seat')
             else:
                 flash('Movie doesn\'t exist', category='warning')
                 return render_template('add_shows.html', user = current_user, movies = movies, theaters = theaters)
             print(show_movie_screened)
-
             if show_movie_screened >= 1 and show_theater_screened_in >= 1  and show_seats_available >= 1:
                 new_show = Show(movie_screened = show_movie_screened, theater_screened_in = show_theater_screened_in, movie = show_movie, theater = show_theater.name, theater_address = show_theater.address, theater_address_link = show_theater.location, datetime_screened = show_date_time_screened, theater_admin_id = current_user.id, seats_available = show_seats_available, cost_per_seat = show_cost_per_seat)
                 db.session.add(new_show)

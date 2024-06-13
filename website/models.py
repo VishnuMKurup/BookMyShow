@@ -48,7 +48,16 @@ class Show(db.Model):
     theater_admin_id = db.Column(db.Integer, db.ForeignKey('registered_user.id'))
     seats_available = db.Column(db.Integer)
     cost_per_seat = db.Column(db.Integer)
+    seats = db.relationship('Seat', back_populates='show', lazy=True)
     tickets_booked = db.relationship('Ticket')
+
+class Seat(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    show_id = db.Column(db.Integer, db.ForeignKey('show.id'), nullable=False)
+    seat_number = db.Column(db.String(10), nullable=False)
+    is_available = db.Column(db.Boolean, default=True)
+    show = db.relationship('Show', back_populates='seats')
+
 
 class Ticket(db.Model):
     id = db.Column(db.Integer, primary_key=True)

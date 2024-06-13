@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, flash, jsonify, redirect, url_for, current_app
 from flask_login import login_user, login_required, logout_user, current_user
-from .models import RegisteredUser, Theaters, Movie, Show, Ticket
+from .models import RegisteredUser, Theaters, Movie, Show, Ticket, Seat
 from . import db
 import os
 import secrets

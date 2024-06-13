@@ -132,12 +132,13 @@ def my_tickets():
 def book_ticket(id):
     if current_user.is_super_admin == False and current_user.is_theatre_admin == False:
         show_to_book = Show.query.get(int(id))
-        seats = Seat.query.filter_by(show_id=id, is_available=True).all()
-        
+        seats = Seat.query.filter_by(show_id=id).all()
         if request.method == 'POST':
-            selected_seat_ids = request.form.getlist('selected_seats')
+            selected_seat_ids = request.form.getlist('selected_seats')[0].split(',')
             selected_seat_count = len(selected_seat_ids)
-            if selected_seat_count > 0 and selected_seat_count <= show_to_book.seats_available:
+            if (selected_seat_count == 1 and selected_seat_ids[0] == '') \
+                or \
+               (selected_seat_count > 0 and selected_seat_count <= show_to_book.seats_available):
                 show_to_book.seats_available -= selected_seat_count
                 for seat_id in selected_seat_ids:
                     seat = Seat.query.get(int(seat_id))

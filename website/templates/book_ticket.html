@@ -106,11 +106,9 @@ Book a show
         <div class="mb-3">
             <label for="seat_selection" class="form-label">Select Seats</label>
             <div id="seat-map">
-                {% for row in seats %}
+                {% for seat in seats %}
                     <div class="seat-row">
-                        {% for seat in row %}
-                            <div class="seat {% if seat.available %}available{% else %}unavailable{% endif %}" data-seat="{{ seat.id }}">{{ seat.number }}</div>
-                        {% endfor %}
+                            <div class="seat {% if seat.is_available %}available{% else %}unavailable{% endif %}" data-seat="{{ seat.id }}">{{ seat.seat_number }}</div>
                     </div>
                 {% endfor %}
             </div>
@@ -155,6 +153,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Ensure the seats_available is interpreted as an integer
     const seatsAvailable = parseInt("{{ show.seats_available }}", 10);
+    console.log(`seatsAvailable: ${seatsAvailable}`)
 
     // Initial check to disable the button if no seats are available
     function updateButtonState() {

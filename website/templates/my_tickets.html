@@ -1,22 +1,19 @@
 {% extends "base.html" %}
 
 {% block title %} 
-My Tickets 
+My Bookings 
 {% endblock %}
 
 {% block content %}
 <!-- NAVBAR -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-        <a class="navbar-brand" style="font-weight: 1000; font-family: 'Poppins', sans-serif" href="#">Bookmyshow</a>
+        <a class="navbar-brand" style="font-weight: 1000; font-family: 'Poppins', sans-serif" href="/">Bookmyshow</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse d-md-flex justify-content-md-end" id="navbarNavDropdown">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="/">Home</a>
-                </li>
                 {% if user.is_authenticated %}
                     {% if user.is_theatre_admin %}
                         <li class="nav-item">
@@ -28,7 +25,7 @@ My Tickets
                         </li>
                     {% else %}
                         <li class="nav-item">
-                            <a class="nav-link active" href="/my_tickets">My Tickets</a>
+                            <a class="nav-link active" href="/my_tickets">My Bookings</a>
                         </li>
                     {% endif %}
                 {% endif %}
@@ -65,7 +62,7 @@ My Tickets
 
 <div class="container-fluid align-self-center">
     <br/>
-    <p><strong>My Tickets</strong></p>
+    <p><strong>My Bookings</strong></p>
     <hr/>
     <div class="container pt-4 pb-4">
         <div class="row row-cols-auto">

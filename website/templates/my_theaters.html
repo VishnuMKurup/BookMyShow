@@ -1,4 +1,4 @@
-{% extends "base.html" %} 
+{% extends "base.html" %}
 
 {% block title %} 
 Theaters 
@@ -7,29 +7,23 @@ Theaters
 {% block content %}
 <!-- NAVBAR -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container-fluid">
-    <a class="navbar-brand" style="font-weight: 1000; font-family: 'Poppins', sans-serif" href="#">Bookmyshow</a>
+  <div class="container">
+    <a class="navbar-brand" href="/">Bookmyshow</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse d-md-flex justify-content-md-end" id="navbarNavDropdown">
-      <ul class="navbar-nav navbar-nav mr-auto">
-        <li class="nav-item">
-          <a class="nav-link" aria-current="page" href="/">Home</a>
-        </li>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+      <ul class="navbar-nav">
         {% if user.is_authenticated %}
         <li class="nav-item">
           {% if user.is_theatre_admin %}
-            <a class="nav-link active" href="/my_theaters">Theater</a>
+            <a class="nav-link" href="/my_theaters">Theaters</a>
+          {% elif user.is_super_admin %}
+            <a class="nav-link" href="/movies">Movies</a>
+          {% else %}
+            <a class="nav-link" href="/my_tickets">My Bookings</a>
+          {% endif %}
         </li>
-        {% elif user.is_super_admin %}
-        <a class="nav-link" href="/movies">Movies</a>
-        {% else %}
-        <a class="nav-link" href="/my_tickets">My Tickets</a>
-        {% endif %}
-        {% endif %}
-        </li>
-        {% if user.is_authenticated %}
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             {% if user.is_theatre_admin %}
@@ -41,11 +35,11 @@ Theaters
             {% endif %}
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="nav-link" href="/logout">Logout</a></li>
+            <li><a class="dropdown-item" href="/logout">Logout</a></li>
           </ul>
         </li>
         {% else %}
-        <li class="nav-item justify-content-end">
+        <li class="nav-item">
           <a class="nav-link" href="/login">Login</a>
         </li>
         {% endif %}
@@ -54,95 +48,141 @@ Theaters
   </div>
 </nav>
 
+<!-- Flash Messages -->
+<div class="container mt-4">
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+</div>
 
- <!-- Flash Messages -->
- {% with messages = get_flashed_messages(with_categories=true) %}
- {% if messages %}
- {% for category, message in messages %}
- {% if category == 'error' %}
- <div class="alert alert-danger alert-dismissible fade show" role="alert">
-     {{ message }}
-     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
- </div>
- {% elif category == 'success' %}
- <div class="alert alert-success alert-dismissible fade show" role="alert">
-     {{ message }}
-     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
- </div>
- {% elif category == 'warning' %}
- <div class="alert alert-warning alert-dismissible fade show" role="alert">
-     {{ message }}
-     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
- </div>
- {% elif category == 'note' %}
- <div class="alert alert-secondary alert-dismissible fade show" role="alert">
-     {{ message }}
-     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
- </div>
- {% endif %}
- {% endfor %}
- {% endif %}
- {% endwith %}
-
-<div class="container">
+<div class="container mt-4">
   <div class="row">
     <div class="col">
-      <div class="container-fluid pt-4 ps-5">
-        <div class="row">
-            <div class="col-10">
-                <h5 class="fw-bold">My Theaters</h5>
-            </div>
-            <div class="col-2"><a href="/add_theaters" class="btn btn-outline-dark btn-sm">Add Theaters</a></div>
+      <div class="container-fluid">
+        <div class="row mb-4">
+          <div class="col-10">
+            <h5 class="fw-bold">My Theaters</h5>
+          </div>
+          <div class="col-2 text-end">
+            <a href="/add_theaters" class="btn btn-outline-dark btn-sm">Add Theaters</a>
+          </div>
         </div>
+      </div>
+      <div class="container-fluid">
+        <div class="list-group shadow">
+          {% for theater in user.theaters %}
+            <a href="#" class="list-group-item list-group-item-action">
+              <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">{{ theater.name }}</h5>
+                <small>{{ theater.city }}</small>
+              </div>
+              <p class="mb-1">{{ theater.address }}</p>
+              <small class="text-muted">Capacity: {{ theater.capacity }}</small>
+            </a>
+          {% endfor %}
+        </div>
+      </div>
     </div>
-    
-    
-    
-    <div class="container-fluid align-self-center" style="width: 100%;">
-        <ol class="list-group-fluid list-group-numbered align-middle pt-4" style="width:500px;align-content:center">
-            {% for theater in user.theaters %}
-            <li class="list-group-item d-flex justify-content-between align-items-start">
-                <div class="ms-2 me-auto">
-                  <div class="fw-bold">{{ theater.name }}</div>
-                  {{ theater.address }}, {{ theater.city }}
-                </div>
-                <!-- <span class="badge bg-primary rounded-pill">14</span> -->
-              </li>
-            {% endfor %}
-          
-          </ol>
-    </div>
-    </div>
+
     <div class="col">
-      <div class="container-fluid pt-4 ps-5">
-        <div class="row">
-            <div class="col-10">
-                <h5 class="fw-bold">My Shows</h5>
-            </div>
-            <div class="col-2"><a href="/add_shows" class="btn btn-outline-dark btn-sm">Add Shows</a></div>
+      <div class="container-fluid">
+        <div class="row mb-4">
+          <div class="col-10">
+            <h5 class="fw-bold">My Shows</h5>
+          </div>
+          <div class="col-2 text-end">
+            <a href="/add_shows" class="btn btn-outline-dark btn-sm">Add Shows</a>
+          </div>
         </div>
-    </div>
-    
-    <div class="container-fluid align-self-center" style="width: 100%;">
-        <ol class="list-group-fluid list-group-numbered align-middle pt-4" style="width:500px;align-content:center">
-            {% for show in user.shows %}
-            
-            <li class="list-group-item d-flex justify-content-between align-items-start">
-                <div class="ms-2 me-auto">
-                  <div class="fw-bold"><a href="/show_tickets/{{ show.id }}" class="link-dark">{{ show.movie }}</a></div>
-                    {{ show.theater }}, {{ show.datetime_screened }}
-                </div>
-                <span class="badge bg-primary rounded-pill">{{show.seats_available}}</span>
-              </li>
-            {% endfor %}
-          
-          </ol>
-        
-    </div>
+      </div>
+      <div class="container-fluid">
+        <div class="list-group shadow">
+          {% for show in user.shows %}
+            <a href="/show_tickets/{{ show.id }}" class="list-group-item list-group-item-action">
+              <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">{{ show.movie }}</h5>
+                <small>{{ show.datetime_screened }}</small>
+              </div>
+              <p class="mb-1">{{ show.theater }}</p>
+              <small class="text-muted">Seats Available: {{ show.seats_available }}</small>
+            </a>
+          {% endfor %}
+        </div>
+      </div>
     </div>
   </div>
 </div>
 
-
-
 {% endblock %}
+
+<style>
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #f8f9fa; /* Light gray background */
+}
+
+.navbar-brand {
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: #343a40; /* Dark color for contrast */
+}
+
+.navbar-nav .nav-link {
+  font-weight: 500;
+  color: #6c757d; /* Medium gray color */
+}
+
+.navbar-nav .nav-link:hover {
+  color: #343a40; /* Dark color on hover */
+}
+
+.alert {
+  font-weight: 500;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+}
+
+.alert-success {
+  background-color: #d4edda; /* Light green background */
+  color: #155724; /* Dark green text */
+}
+
+.alert-danger {
+  background-color: #f8d7da; /* Light red background */
+  color: #721c24; /* Dark red text */
+}
+
+.btn-outline-dark {
+  border-color: #343a40; /* Dark border color */
+  color: #343a40; /* Dark text color */
+}
+
+.btn-outline-dark:hover {
+  background-color: #343a40; /* Dark background on hover */
+  color: #fff; /* White text on hover */
+}
+
+.list-group {
+  background-color: #fff; /* White background */
+}
+
+.list-group-item {
+  border-color: #dee2e6; /* Light gray border */
+}
+
+.list-group-item:hover {
+  background-color: #f8f9fa; /* Light gray background on hover */
+}
+
+.shadow {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Soft shadow for cards */
+}
+
+</style>

@@ -1,31 +1,30 @@
-{% extends "base.html" %} 
+{% extends "base.html" %}
 
-{% block title %} 
-Login 
+{% block title %}
+Login
 {% endblock %}
 
 {% block content %}
 <!-- NAVBAR -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
   <div class="container-fluid">
-    <a class="navbar-brand" style="font-weight: 1000; font-family: 'Poppins', sans-serif" href="/">Bookmyshow</a>
+    <a class="navbar-brand" style="font-weight: 1000; font-family: 'Poppins', sans-serif; color:rgb(192, 25, 192)" href="/">BookMyShow</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse d-md-flex justify-content-md-end" id="navbarNavDropdown">
-      <ul class="navbar-nav navbar-nav mr-auto">
+      <ul class="navbar-nav">
         {% if user.is_authenticated %}
         <li class="nav-item">
           {% if user.is_theatre_admin %}
             <a class="nav-link" href="/my_theaters">Theater</a>
+          {% elif user.is_super_admin %}
+            <a class="nav-link" href="/movies">Movies</a>
+          {% else %}
+            <a class="nav-link" href="/my_tickets">My Bookings</a>
+          {% endif %}
         </li>
-        {% elif user.is_super_admin %}
-        <a class="nav-link" href="movies">Movies</a>
-        {% else %}
-        <a class="nav-link" href="my_tickets">My Bookings</a>
         {% endif %}
-        {% endif %}
-        </li>
         {% if user.is_authenticated %}
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -42,7 +41,7 @@ Login
           </ul>
         </li>
         {% else %}
-        <li class="nav-item justify-content-end">
+        <li class="nav-item">
           <a class="nav-link active" href="/login">Login</a>
         </li>
         {% endif %}
@@ -51,51 +50,57 @@ Login
   </div>
 </nav>
 
- <!-- Flash Messages -->
- {% with messages = get_flashed_messages(with_categories=true) %}
- {% if messages %}
- {% for category, message in messages %}
- {% if category == 'error' %}
- <div class="alert alert-danger alert-dismissible fade show" role="alert">
-     {{ message }}
-     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
- </div>
- {% elif category == 'success' %}
- <div class="alert alert-success alert-dismissible fade show" role="alert">
-     {{ message }}
-     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
- </div>
- {% elif category == 'warning' %}
- <div class="alert alert-warning alert-dismissible fade show" role="alert">
-     {{ message }}
-     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
- </div>
- {% elif category == 'note' %}
- <div class="alert alert-secondary alert-dismissible fade show" role="alert">
-     {{ message }}
-     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
- </div>
- {% endif %}
- {% endfor %}
- {% endif %}
- {% endwith %}
+<!-- Flash Messages -->
+<div class="container mt-4">
+  {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      {% if category == 'error' %}
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      {% elif category == 'success' %}
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      {% elif category == 'warning' %}
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      {% elif category == 'note' %}
+      <div class="alert alert-secondary alert-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+  {% endwith %}
+</div>
 
-<h3 style="display: flex; justify-content: center;align-items: center;padding-top:5%; font-weight:700">Login</h3>
-<div class="form" style="display: flex; justify-content: center;align-items: center;padding-top:20px">
-    
-    <form method = "POST">
+<!-- Login Form -->
+<div class="container mt-5">
+  <h3 class="text-center font-weight-bold">Login</h3>
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <form method="POST">
         <div class="mb-3">
           <label for="email" class="form-label">Email address</label>
-          <input type="email" class="form-control" id="email" name="email">
+          <input type="email" class="form-control" id="email" name="email" required>
         </div>
         <div class="mb-3">
           <label for="password" class="form-label">Password</label>
-          <input type="password" class="form-control" id="password" name="password">
+          <input type="password" class="form-control" id="password" name="password" required>
         </div>
-        <p>Not Registered? <a href="/sign_up">Register</a> </p>
-        <button type="submit" class="btn btn-primary">Login</button>
+        <p>Not Registered? <a href="/sign_up">Register</a></p>
+        <div class="d-grid">
+          <button type="submit" class="btn btn-primary">Login</button>
+        </div>
       </form>
+    </div>
+  </div>
 </div>
-
-
 {% endblock %}

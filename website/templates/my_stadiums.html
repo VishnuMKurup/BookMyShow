@@ -16,17 +16,17 @@ Theaters
       <ul class="navbar-nav">
         {% if user.is_authenticated %}
         <li class="nav-item">
-          {% if user.is_theatre_admin %}
-            <a class="nav-link" href="/my_theaters">Theaters</a>
+          {% if user.is_tournament_admin %}
+            <a class="nav-link" href="/my_stadiums">Theaters</a>
           {% elif user.is_super_admin %}
-            <a class="nav-link" href="/movies">Movies</a>
+            <a class="nav-link" href="/tournaments">Tournaments</a>
           {% else %}
             <a class="nav-link" href="/my_tickets">My Bookings</a>
           {% endif %}
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            {% if user.is_theatre_admin %}
+            {% if user.is_tournament_admin %}
               {{ user.name }}, Theatre Admin
             {% elif user.is_super_admin %}
               {{ user.name }}, Super Admin
@@ -71,7 +71,7 @@ Theaters
             <h5 class="fw-bold">My Theaters</h5>
           </div>
           <div class="col-2 text-end">
-            <a href="/add_theaters" class="btn btn-outline-dark btn-sm">Add Theaters</a>
+            <a href="/add_stadiums" class="btn btn-outline-dark btn-sm">Add Theaters</a>
           </div>
         </div>
       </div>
@@ -107,7 +107,7 @@ Theaters
           {% for show in user.shows %}
             <a href="/show_tickets/{{ show.id }}" class="list-group-item list-group-item-action">
               <div class="d-flex w-100 justify-content-between">
-                <h5 class="mb-1">{{ show.movie }}</h5>
+                <h5 class="mb-1">{{ show.tournament }}</h5>
                 <small>{{ show.datetime_screened }}</small>
               </div>
               <p class="mb-1">{{ show.theater }}</p>

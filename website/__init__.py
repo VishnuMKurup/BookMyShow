@@ -22,7 +22,7 @@ def create_app():
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
 
-    from .models import RegisteredUser, Theaters, Movie, Show
+    from .models import RegisteredUser, Stadium, Tournament, Match
 
     create_database(app)
 

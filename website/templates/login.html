@@ -16,10 +16,10 @@ Login
       <ul class="navbar-nav">
         {% if user.is_authenticated %}
         <li class="nav-item">
-          {% if user.is_theatre_admin %}
-            <a class="nav-link" href="/my_theaters">Theater</a>
+          {% if user.is_tournament_admin %}
+            <a class="nav-link" href="/my_stadiums">Theater</a>
           {% elif user.is_super_admin %}
-            <a class="nav-link" href="/movies">Movies</a>
+            <a class="nav-link" href="/tournaments">Tournaments</a>
           {% else %}
             <a class="nav-link" href="/my_tickets">My Bookings</a>
           {% endif %}
@@ -28,7 +28,7 @@ Login
         {% if user.is_authenticated %}
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            {% if user.is_theatre_admin %}
+            {% if user.is_tournament_admin %}
               {{ user.name }}, Theatre Admin
             {% elif user.is_super_admin %}
               {{ user.name }}, Super Admin

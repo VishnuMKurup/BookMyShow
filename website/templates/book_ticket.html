@@ -19,10 +19,10 @@ Book a Show
                 </li>
                 {% if user.is_authenticated %}
                 <li class="nav-item">
-                    {% if user.is_theatre_admin %}
-                        <a class="nav-link" href="/my_theaters">Theater</a>
+                    {% if user.is_tournament_admin %}
+                        <a class="nav-link" href="/my_stadiums">Theater</a>
                     {% elif user.is_super_admin %}
-                        <a class="nav-link" href="/movies">Movies</a>
+                        <a class="nav-link" href="/tournaments">Tournaments</a>
                     {% else %}
                         <a class="nav-link" href="/my_tickets">My Bookings</a>
                     {% endif %}
@@ -31,7 +31,7 @@ Book a Show
                 {% if user.is_authenticated %}
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        {% if user.is_theatre_admin %}
+                        {% if user.is_tournament_admin %}
                             {{ user.name }}, Theatre Admin
                         {% elif user.is_super_admin %}
                             {{ user.name }}, Super Admin
@@ -74,8 +74,8 @@ Book a Show
         <div class="col-md-6">
             <form method="POST" enctype="multipart/form-data">
                 <div class="mb-3">
-                    <label for="title" class="form-label">Movie</label>
-                    <input class="form-control" type="text" placeholder="{{ show.movie }}" aria-label="{{ show.movie }}" disabled>
+                    <label for="title" class="form-label">Tournament</label>
+                    <input class="form-control" type="text" placeholder="{{ show.tournament }}" aria-label="{{ show.tournament }}" disabled>
                 </div>
                 <div class="mb-3">
                     <label for="starring" class="form-label">Theater</label>

@@ -16,10 +16,10 @@ Home
       <ul class="navbar-nav mr-auto">
         {% if user.is_authenticated %}
           <li class="nav-item">
-            {% if user.is_theatre_admin %}
-              <a class="nav-link" href="/my_theaters">Theater</a>
+            {% if user.is_tournament_admin %}
+              <a class="nav-link" href="/my_stadiums">Theater</a>
             {% elif user.is_super_admin %}
-              <a class="nav-link" href="/movies">Movies</a>
+              <a class="nav-link" href="/tournaments">Tournaments</a>
             {% else %}
               <a class="nav-link" href="/my_tickets">My Bookings</a>
             {% endif %}
@@ -28,7 +28,7 @@ Home
         {% if user.is_authenticated %}
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              {% if user.is_theatre_admin %}
+              {% if user.is_tournament_admin %}
                 {{ user.name }}, Theatre Admin
               {% elif user.is_super_admin %}
                 {{ user.name }}, Super Admin
@@ -81,7 +81,7 @@ Home
 
 <div class="container">
   <div class="col">
-    <h1 style="padding-top: 2%;"><div class="fw-bold">{{ movie.title }}</div></h1> in theaters
+    <h1 style="padding-top: 2%;"><div class="fw-bold">{{ tournament.title }}</div></h1> in theaters
   </div>
   <hr/>
   <p><strong>Book your show</strong></p>
@@ -92,7 +92,7 @@ Home
           <div class="card shadow-sm h-100">
             <div class="card-body">
               {% if user.is_authenticated %}
-                {% if user.is_theatre_admin == false and user.is_super_admin == false %}
+                {% if user.is_tournament_admin == false and user.is_super_admin == false %}
                   <h5 class="card-title"><div class="fw-bold"><a href="/book_ticket/{{ show.id }}" class="link-dark">{{ show.theater }}</a></div></h5>
                 {% else %}
                   <h5 class="card-title"><div class="fw-bold">{{ show.theater }}</div></h5>

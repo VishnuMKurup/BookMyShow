@@ -1,7 +1,7 @@
 {% extends "base.html" %} 
 
 {% block title %} 
-Add Movie 
+Add Tournament 
 {% endblock %}
 
 {% block content %}
@@ -16,11 +16,11 @@ Add Movie
       <ul class="navbar-nav navbar-nav mr-auto">
         {% if user.is_authenticated %}
         <li class="nav-item">
-          {% if user.is_theatre_admin %}
-            <a class="nav-link" href="/my_theaters">Theater</a>
+          {% if user.is_tournament_admin %}
+            <a class="nav-link" href="/my_stadiums">Theater</a>
         </li>
         {% elif user.is_super_admin %}
-        <a class="nav-link active" href="movies">Movies</a>
+        <a class="nav-link active" href="tournaments">Tournaments</a>
         {% else %}
         <a class="nav-link" href="my_tickets">My Bookings</a>
         {% endif %}
@@ -29,7 +29,7 @@ Add Movie
         {% if user.is_authenticated %}
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            {% if user.is_theatre_admin %}
+            {% if user.is_tournament_admin %}
               {{ user.name }}, Theatre Admin
             {% elif user.is_super_admin %}
               {{ user.name }}, Super Admin
@@ -80,12 +80,12 @@ Add Movie
   {% endif %}
 {% endwith %}
 
-<h3 style="display: flex; justify-content: center;align-items: center;padding-top:5%; font-weight:700">Add Movie</h3>
+<h3 style="display: flex; justify-content: center;align-items: center;padding-top:5%; font-weight:700">Add Tournament</h3>
 <div class="form" style="display: flex; justify-content: center;align-items: center;padding-top:10px">
 <form method = "POST" enctype="multipart/form-data">
     <div class="mb-3">
       <label for="title" class="form-label">Title</label>
-      <input type="Text" class="form-control" placeholder="Title of the movie" name="title">
+      <input type="Text" class="form-control" placeholder="Title of the tournament" name="title">
     </div>
     <div class="mb-3">
       <label for="starring" class="form-label">Starring</label>
@@ -93,13 +93,13 @@ Add Movie
     </div>
     <div class="mb-3">
         <label for="production_house" class="form-label">Production</label>
-        <input type="Text" class="form-control" placeholder="Production_house" name="production_house">
+        <input type="Text" class="form-control" placeholder="Production_house" name="organizer">
     </div>
     <div class="mb-3">
         <label for="poster" class="form-label">Poster</label>
         <input type="file" class="form-control" accept="image/*" placeholder="Upload Image" name="poster">
     </div>
-    <button type="submit" class="btn btn-primary ">Add Movie</button>
+    <button type="submit" class="btn btn-primary ">Add Tournament</button>
 </form>
 </div>
 {% endblock %}

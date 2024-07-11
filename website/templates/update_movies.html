@@ -1,4 +1,4 @@
-{% extends "base.html" %} 
+{% extends "base.html" %}
 
 {% block title %} 
 Update Movie Details 
@@ -6,26 +6,25 @@ Update Movie Details
 
 {% block content %}
 <!-- NAVBAR -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
-    <a class="navbar-brand" style="font-weight: 1000; font-family: 'Poppins', sans-serif" href="/">Bookmyshow</a>
+    <a class="navbar-brand" style="font-weight: 1000; font-family: 'Poppins', sans-serif; color: rgb(192, 25, 192)" href="/">Bookmyshow</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse d-md-flex justify-content-md-end" id="navbarNavDropdown">
-      <ul class="navbar-nav navbar-nav mr-auto">
+      <ul class="navbar-nav mr-auto">
         {% if user.is_authenticated %}
         <li class="nav-item">
           {% if user.is_theatre_admin %}
             <a class="nav-link" href="/my_theaters">Theater</a>
+          {% elif user.is_super_admin %}
+            <a class="nav-link active" href="/movies">Movies</a>
+          {% else %}
+            <a class="nav-link" href="/my_tickets">My Bookings</a>
+          {% endif %}
         </li>
-        {% elif user.is_super_admin %}
-        <a class="nav-link" href="/movies">Movies</a>
-        {% else %}
-        <a class="nav-link" href="/my_tickets">My Bookings</a>
         {% endif %}
-        {% endif %}
-        </li>
         {% if user.is_authenticated %}
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -38,7 +37,7 @@ Update Movie Details
             {% endif %}
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="nav-link" href="/logout">Logout</a></li>
+            <li><a class="dropdown-item" href="/logout">Logout</a></li>
           </ul>
         </li>
         {% else %}
@@ -51,55 +50,45 @@ Update Movie Details
   </div>
 </nav>
 
- <!-- Flash Messages -->
- {% with messages = get_flashed_messages(with_categories=true) %}
- {% if messages %}
- {% for category, message in messages %}
- {% if category == 'error' %}
- <div class="alert alert-danger alert-dismissible fade show" role="alert">
-     {{ message }}
-     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
- </div>
- {% elif category == 'success' %}
- <div class="alert alert-success alert-dismissible fade show" role="alert">
-     {{ message }}
-     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
- </div>
- {% elif category == 'warning' %}
- <div class="alert alert-warning alert-dismissible fade show" role="alert">
-     {{ message }}
-     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
- </div>
- {% elif category == 'note' %}
- <div class="alert alert-secondary alert-dismissible fade show" role="alert">
-     {{ message }}
-     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
- </div>
- {% endif %}
- {% endfor %}
- {% endif %}
- {% endwith %}
+<!-- Flash Messages -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+  {% for category, message in messages %}
+  <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+    {{ message }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  {% endfor %}
+{% endif %}
+{% endwith %}
 
-<h3 style="display: flex; justify-content: center;align-items: center;padding-top:5%; font-weight:700">Update Movie</h3>
-<div class="form" style="display: flex; justify-content: center;align-items: center;padding-top:10px">
-<form method = "POST" enctype="multipart/form-data">
-    <div class="mb-3">
-      <label for="title" class="form-label">Title</label>
-      <input type="Text" class="form-control" placeholder="Title of the movie" name="title" value= "{{ movie.title }}" >
+<div class="container mt-5">
+  <div class="card shadow" style="max-width: 600px; margin: 0 auto;">
+    <div class="card-body">
+      <h3 class="card-title fw-bold text-center mb-4">Update Movie</h3>
+      <form method="POST" enctype="multipart/form-data">
+        <div class="mb-3">
+          <label for="title" class="form-label">Title</label>
+          <input type="text" class="form-control" id="title" name="title" placeholder="Enter title" value="{{ movie.title }}">
+        </div>
+        <div class="mb-3">
+          <label for="starring" class="form-label">Starring</label>
+          <input type="text" class="form-control" id="starring" name="starring" placeholder="Enter starring actors" value="{{ movie.starring }}">
+        </div>
+        <div class="mb-3">
+          <label for="production_house" class="form-label">Production House</label>
+          <input type="text" class="form-control" id="production_house" name="production_house" placeholder="Enter production house" value="{{ movie.production_house }}">
+        </div>
+        <div class="mb-3">
+          <label for="poster" class="form-label">Poster</label>
+          <input type="file" class="form-control" id="poster" name="poster" accept="image/*">
+        </div>
+        <div class="d-grid">
+          <button type="submit" class="btn btn-primary btn-lg">Update</button>
+        </div>
+      </form>
     </div>
-    <div class="mb-3">
-      <label for="starring" class="form-label">Starring</label>
-      <input type="Text" class="form-control" placeholder="Lead cast" name="starring" value="{{ movie.starring }}">
-    </div>
-    <div class="mb-3">
-        <label for="production_house" class="form-label">Production</label>
-        <input type="Text" class="form-control" placeholder="Production_house" name="production_house" value = "{{ movie.production_house }}">
-    </div>
-    <div class="mb-3">
-        <label for="poster" class="form-label">Poster</label>
-        <input type="file" class="form-control" accept="image/*" placeholder="Upload New Image" name="poster" value="{{ movie.poster }}" >
-    </div>
-    <button type="submit" class="btn btn-primary ">Update</button>
-</form>
+  </div>
 </div>
+
 {% endblock %}

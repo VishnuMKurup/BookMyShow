@@ -17,9 +17,9 @@ Add Show
                     {% if user.is_authenticated %}
                     <li class="nav-item">
                         {% if user.is_tournament_admin %}
-                            <a class="nav-link" href="/my_stadiums">Theater</a>
+                            <a class="nav-link" href="/my_stadiums">Tournament</a>
                         {% elif user.is_super_admin %}
-                            <a class="nav-link" href="/tournaments">Tournaments</a>
+                            <a class="nav-link" href="/tournaments">Stadium</a>
                         {% else %}
                             <a class="nav-link" href="/my_tickets">My Tickets</a>
                         {% endif %}
@@ -27,9 +27,9 @@ Add Show
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             {% if user.is_tournament_admin %}
-                                {{ user.name }}, Theatre Admin
+                                {{ user.name }}, Tournament Admin
                             {% elif user.is_super_admin %}
-                                {{ user.name }}, Super Admin
+                                {{ user.name }}, Stadium Admin
                             {% else %}
                                 {{ user.name }}
                             {% endif %}
@@ -74,10 +74,10 @@ Add Show
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label for="theaters" class="form-label">Theater</label>
-                        <select class="form-select" aria-label="Select Theater" name="theater_screened_in">
-                            {% for theater in user.theaters %}
-                            <option value="{{ theater.id }}">{{ theater.name }}</option>
+                        <label for="stadium" class="form-label">Theater</label>
+                        <select class="form-select" aria-label="Select Theater" name="stadium_screened_in">
+                            {% for stadium in user.stadium %}
+                            <option value="{{ stadium.id }}">{{ stadium.name }}</option>
                             {% endfor %}
                         </select>
                     </div>

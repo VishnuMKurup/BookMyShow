@@ -18,14 +18,15 @@ def home():
 @views.route('/tournaments')
 @login_required
 def tournaments():
-    if current_user.is_super_admin == True:
+    if current_user.is_tournament_admin == True:
         return render_template('tournaments.html', user = current_user)
     return redirect(url_for('views.home'))
 
 @views.route('/add_tournaments', methods=['GET', 'POST'])
 @login_required
 def add_tournaments():
-    if current_user.is_super_admin == True:
+    print(f"### current_user.is_super_admin {current_user.is_super_admin}")
+    if current_user.is_tournament_admin == True:
         if request.method == 'POST':
             tournament_title =  request.form.get('title')
             tournament_starring = request.form.get('starring')
@@ -81,7 +82,8 @@ def update_tournaments(id):
 @views.route('/my_stadiums')
 @login_required
 def my_stadiums():
-    if current_user.is_tournament_admin == True:
+    print(f"#####is_super_admin: {current_user.is_super_admin}")
+    if current_user.is_super_admin == True:
         tournaments = Tournament.query.all()
         return render_template('my_stadiums.html', user = current_user, tournaments = tournaments)
     return redirect(url_for('views.home'))
@@ -101,7 +103,7 @@ def select_stadiums(id):
 @views.route('/add_stadiums', methods=['GET', 'POST'])
 @login_required
 def add_stadiums():
-    if current_user.is_tournament_admin == True:
+    if current_user.is_super_admin == True:
         if request.method == 'POST':
             stadium_name =  request.form.get('name')
             stadium_address = request.form.get('address')
@@ -179,7 +181,7 @@ def book_ticket(id):
 def add_matches():
     tournaments = Tournament.query.all()
     stadium = Stadium.query.filter_by(stadium_admin_id=int(current_user.id)).all()
-    if current_user.is_tournament_admin == True:
+    if current_user.is_super_admin == True:
         if request.method == 'POST':
             match_tournament_screened = Tournament.query.filter_by(title=request.form.get('tournament_screened')).first().id
             if match_tournament_screened:

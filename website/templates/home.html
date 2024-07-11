@@ -17,20 +17,20 @@ Home
             <ul class="navbar-nav navbar-nav mr-auto">
                 {% if user.is_authenticated %}
                 <li class="nav-item">
-                    {% if user.is_theatre_admin %}
-                    <a class="nav-link" href="/my_stadiums">Theater</a>
+                    {% if user.is_tournament_admin %}
+                    <a class="nav-link" href="/tournaments">Tournament</a>
                     {% elif user.is_super_admin %}
-                    <a class="nav-link" href="/tournaments">Tournaments</a>
+                    <a class="nav-link" href="/my_stadiums">Stadium</a>
                     {% else %}
-                    <a class="nav-link" href="/my_tickets">My Bookings</a>
+                    <a class="nav-link" href="/my_tickets">My Matches</a>
                     {% endif %}
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        {% if user.is_theatre_admin %}
-                        {{ user.name }}, Theatre Admin
+                        {% if user.is_tournament_admin %}
+                        {{ user.name }}, Tournament Admin
                         {% elif user.is_super_admin %}
-                        {{ user.name }}, Super Admin
+                        {{ user.name }}, Stadium Admin
                         {% else %}
                         {{ user.name }}
                         {% endif %}
@@ -124,7 +124,7 @@ Home
                 <div class="card shadow-sm h-100">
                     <img src="/static/tournament_posters/{{ tournament.poster }}" class="card-img-top" style="height: 300px; object-fit: cover;">
                     <div class="card-body">
-                        <h5 class="card-title"><a href="/select_theaters/{{ tournament.id }}" class="text-decoration-none text-dark">{{ tournament.title }}</a></h5>
+                        <h5 class="card-title"><a href="/select_stadiums/{{ tournament.id }}" class="text-decoration-none text-dark">{{ tournament.title }}</a></h5>
                         <p class="card-text">{{ tournament.starring }}</p>
                     </div>
                 </div>
@@ -168,8 +168,8 @@ Home
                 <div class="card shadow-sm h-100">
                     <img src="/static/events/event3.jpeg" class="card-img-top" alt="Event 3" style="height: 200px; object-fit: cover;">
                     <div class="card-body">
-                        <h5 class="card-title">Theater Play</h5>
-                        <p class="card-text">Experience the drama and excitement of live theater.</p>
+                        <h5 class="card-title">Stadium Play</h5>
+                        <p class="card-text">Experience the drama and excitement of live Stadium.</p>
                     </div>
                     <div class="card-footer">
                         <small class="text-muted">Date: September 10, 2024</small>

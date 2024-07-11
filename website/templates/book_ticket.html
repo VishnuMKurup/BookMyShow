@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %}
-Book a Show
+Book a Match
 {% endblock %}
 
 {% block content %}
@@ -34,7 +34,7 @@ Book a Show
                         {% if user.is_tournament_admin %}
                             {{ user.name }}, Theatre Admin
                         {% elif user.is_super_admin %}
-                            {{ user.name }}, Super Admin
+                            {{ user.name }}, Stadium Admin
                         {% else %}
                             {{ user.name }}
                         {% endif %}
@@ -69,25 +69,25 @@ Book a Show
 
 <!-- Booking Form -->
 <div class="container mt-5">
-    <h3 class="text-center font-weight-bold">Book Your Show</h3>
+    <h3 class="text-center font-weight-bold">Book Your Match</h3>
     <div class="row justify-content-center">
         <div class="col-md-6">
             <form method="POST" enctype="multipart/form-data">
                 <div class="mb-3">
                     <label for="title" class="form-label">Tournament</label>
-                    <input class="form-control" type="text" placeholder="{{ show.tournament }}" aria-label="{{ show.tournament }}" disabled>
+                    <input class="form-control" type="text" placeholder="{{ match.tournament }}" aria-label="{{ match.tournament }}" disabled>
                 </div>
                 <div class="mb-3">
                     <label for="starring" class="form-label">Theater</label>
-                    <input class="form-control" type="text" placeholder="{{ show.theater }}" aria-label="{{ show.theater }}" disabled>
+                    <input class="form-control" type="text" placeholder="{{ match.stadium }}" aria-label="{{ match.stadium }}" disabled>
                 </div>
                 <div class="mb-3">
                     <label for="cost_per_seat" class="form-label">Cost per Seat</label>
-                    <input class="form-control" type="text" placeholder="{{ show.cost_per_seat }}" aria-label="{{ show.cost_per_seat }}" disabled>
+                    <input class="form-control" type="text" placeholder="{{ match.cost_per_seat }}" aria-label="{{ match.cost_per_seat }}" disabled>
                 </div>
                 <div class="mb-3">
                     <label for="seats_available" class="form-label">Available Seats</label>
-                    <input class="form-control" type="text" placeholder="{{ show.seats_available }}" aria-label="{{ show.seats_available }}" disabled>
+                    <input class="form-control" type="text" placeholder="{{ match.seats_available }}" aria-label="{{ match.seats_available }}" disabled>
                 </div>
                 <div class="mb-3">
                     <label for="seat_selection" class="form-label">Select Seats</label>
@@ -139,7 +139,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const bookButton = document.getElementById("book-button");
 
     // Ensure the seats_available is interpreted as an integer
-    const seatsAvailable = parseInt("{{ show.seats_available }}", 10);
+    const seatsAvailable = parseInt("{{ match.seats_available }}", 10);
     console.log(`seatsAvailable: ${seatsAvailable}`);
 
     // Initial check to disable the button if no seats are available

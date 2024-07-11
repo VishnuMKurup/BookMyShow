@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %} 
-Add Theater 
+Add Stadiums 
 {% endblock %}
 
 {% block content %}
@@ -16,17 +16,17 @@ Add Theater
                 <ul class="navbar-nav">
                     {% if user.is_authenticated %}
                         <li class="nav-item">
-                            {% if user.is_theatre_admin %}
-                                <a class="nav-link active" href="/my_theaters">Theater</a>
+                            {% if user.is_tournament_admin %}
+                                <a class="nav-link active" href="/my_stadiums">Theater</a>
                             {% elif user.is_super_admin %}
-                                <a class="nav-link" href="/movies">Movies</a>
+                                <a class="nav-link" href="/tournaments">Tournaments</a>
                             {% else %}
                                 <a class="nav-link" href="/my_tickets">My Tickets</a>
                             {% endif %}
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                {% if user.is_theatre_admin %}
+                                {% if user.is_tournament_admin %}
                                     {{ user.name }}, Theatre Admin
                                 {% elif user.is_super_admin %}
                                     {{ user.name }}, Super Admin
@@ -62,7 +62,7 @@ Add Theater
 
     <!-- Form Section -->
     <div class="container mt-4">
-        <h3 class="text-center mb-4" style="font-weight: 700;">Add Theater</h3>
+        <h3 class="text-center mb-4" style="font-weight: 700;">Add Stadiums</h3>
         <div class="row justify-content-center">
             <div class="col-lg-6">
                 <form method="POST">

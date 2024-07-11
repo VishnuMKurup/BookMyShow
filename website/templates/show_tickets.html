@@ -16,17 +16,17 @@ Show Tickets
       <ul class="navbar-nav">
         {% if user.is_authenticated %}
           <li class="nav-item">
-            {% if user.is_theatre_admin %}
-              <a class="nav-link" href="/my_theaters">Theater</a>
+            {% if user.is_tournament_admin %}
+              <a class="nav-link" href="/my_stadiums">Theater</a>
             {% elif user.is_super_admin %}
-              <a class="nav-link" href="/movies">Movies</a>
+              <a class="nav-link" href="/tournaments">Tournaments</a>
             {% else %}
               <a class="nav-link" href="/my_tickets">My Bookings</a>
             {% endif %}
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              {% if user.is_theatre_admin %}
+              {% if user.is_tournament_admin %}
                 {{ user.name }}, Theatre Admin
               {% elif user.is_super_admin %}
                 {{ user.name }}, Super Admin
@@ -66,7 +66,7 @@ Show Tickets
   <div class="row">
     <div class="col">
       <div class="container-fluid">
-        <br/><p><strong>Bookings for {{ show.movie }}</strong>, {{ show.theater }}</p>
+        <br/><p><strong>Bookings for {{ show.tournament }}</strong>, {{ show.theater }}</p>
         <p>Total Bookings: {{ no_of_tickets }}</p><hr/>
       </div>
       <div class="container-fluid">

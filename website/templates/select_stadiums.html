@@ -16,10 +16,10 @@ Home
       <ul class="navbar-nav mr-auto">
         {% if user.is_authenticated %}
           <li class="nav-item">
-            {% if user.is_theatre_admin %}
-              <a class="nav-link" href="/my_theaters">Theater</a>
+            {% if user.is_tournament_admin %}
+              <a class="nav-link" href="/my_stadiums">Theater</a>
             {% elif user.is_super_admin %}
-              <a class="nav-link" href="/movies">Movies</a>
+              <a class="nav-link" href="/tournaments">Tournaments</a>
             {% else %}
               <a class="nav-link" href="/my_tickets">My Bookings</a>
             {% endif %}
@@ -28,10 +28,10 @@ Home
         {% if user.is_authenticated %}
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              {% if user.is_theatre_admin %}
-                {{ user.name }}, Theatre Admin
+              {% if user.is_tournament_admin %}
+                {{ user.name }}, Tournaments
               {% elif user.is_super_admin %}
-                {{ user.name }}, Super Admin
+                {{ user.name }}, Stadium Admin
               {% else %}
                 {{ user.name }}
               {% endif %}
@@ -81,29 +81,29 @@ Home
 
 <div class="container">
   <div class="col">
-    <h1 style="padding-top: 2%;"><div class="fw-bold">{{ movie.title }}</div></h1> in theaters
+    <h1 style="padding-top: 2%;"><div class="fw-bold">{{ tournament.title }}</div></h1> in stadiums
   </div>
   <hr/>
   <p><strong>Book your show</strong></p>
   <div class="container pt-4 pb-4">
     <div class="row row-cols-1 row-cols-md-3 g-4">
-      {% for show in shows %} 
+      {% for match in matches %} 
         <div class="col">
           <div class="card shadow-sm h-100">
             <div class="card-body">
               {% if user.is_authenticated %}
-                {% if user.is_theatre_admin == false and user.is_super_admin == false %}
-                  <h5 class="card-title"><div class="fw-bold"><a href="/book_ticket/{{ show.id }}" class="link-dark">{{ show.theater }}</a></div></h5>
+                {% if user.is_tournament_admin == false and user.is_super_admin == false %}
+                  <h5 class="card-title"><div class="fw-bold"><a href="/book_ticket/{{ match.id }}" class="link-dark">{{ match.stadium }}</a></div></h5>
                 {% else %}
-                  <h5 class="card-title"><div class="fw-bold">{{ show.theater }}</div></h5>
+                  <h5 class="card-title"><div class="fw-bold">{{ match.stadium }}</div></h5>
                 {% endif %}
               {% else %}
-                <h5 class="card-title"><div class="fw-bold"><a href="/book_ticket/{{ show.id }}" class="link-dark">{{ show.theater }}</a></div></h5>
+                <h5 class="card-title"><div class="fw-bold"><a href="/book_ticket/{{ show.id }}" class="link-dark">{{ match.stadium }}</a></div></h5>
               {% endif %}
-              <p class="card-text"><a href="{{ show.theater_address_link }}" target="_blank" class="text-decoration-none text-dark">{{ show.theater_address }}</a></p>
-              <p class="card-text">{{ show.datetime_screened }}</p>
+              <p class="card-text"><a href="{{ match.stadium_address_link }}" target="_blank" class="text-decoration-none text-dark">{{ match.stadium_address }}</a></p>
+              <p class="card-text">{{ match.datetime_screened }}</p>
               <hr/>
-              <p class="card-text">Cost <div class="fw-bold">{{ show.cost_per_seat }} Rs</div></p>
+              <p class="card-text">Cost <div class="fw-bold">{{ match.cost_per_seat }} Rs</div></p>
             </div>
           </div>
         </div>

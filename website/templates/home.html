@@ -17,20 +17,20 @@ Home
             <ul class="navbar-nav navbar-nav mr-auto">
                 {% if user.is_authenticated %}
                 <li class="nav-item">
-                    {% if user.is_theatre_admin %}
-                    <a class="nav-link" href="/my_theaters">Theater</a>
+                    {% if user.is_tournament_admin %}
+                    <a class="nav-link" href="/tournaments">Tournament</a>
                     {% elif user.is_super_admin %}
-                    <a class="nav-link" href="/movies">Movies</a>
+                    <a class="nav-link" href="/my_stadiums">Stadium</a>
                     {% else %}
-                    <a class="nav-link" href="/my_tickets">My Bookings</a>
+                    <a class="nav-link" href="/my_tickets">My Matches</a>
                     {% endif %}
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        {% if user.is_theatre_admin %}
-                        {{ user.name }}, Theatre Admin
+                        {% if user.is_tournament_admin %}
+                        {{ user.name }}, Tournament Admin
                         {% elif user.is_super_admin %}
-                        {{ user.name }}, Super Admin
+                        {{ user.name }}, Stadium Admin
                         {% else %}
                         {{ user.name }}
                         {% endif %}
@@ -91,16 +91,16 @@ Home
             <img src="/static/banners/banner9.jpg" class="d-block w-100" alt="Hero Image 1" style="height: 60vh; object-fit: cover;">
             <div class="carousel-caption d-none d-md-block caption-bg">
                 <h1>Welcome to Bookmyshow</h1>
-                <p class="lead">Discover and book the latest movies and events near you</p>
-                <a href="#recommended-movies" class="btn btn-primary btn-lg mt-3">Explore Now</a>
+                <p class="lead">Discover and book the latest tournaments and events near you</p>
+                <a href="#recommended-tournaments" class="btn btn-primary btn-lg mt-3">Explore Now</a>
             </div>
         </div>
         <div class="carousel-item">
             <img src="/static/banners/banner3.jpg" class="d-block w-100" alt="Hero Image 2" style="height: 60vh; object-fit: cover;">
             <div class="carousel-caption d-none d-md-block caption-bg">
-                <h1>Experience the Best Movies</h1>
+                <h1>Experience the Best Tournaments</h1>
                 <p class="lead">Find the latest blockbusters and enjoy with friends and family</p>
-                <a href="#recommended-movies" class="btn btn-primary btn-lg mt-3">Explore Now</a>
+                <a href="#recommended-tournaments" class="btn btn-primary btn-lg mt-3">Explore Now</a>
             </div>
         </div>
     </div>
@@ -114,18 +114,18 @@ Home
     </button>
 </section>
 
-<!-- Recommended Movies Section -->
-<section id="recommended-movies" class="py-5">
+<!-- Recommended Tournaments Section -->
+<section id="recommended-tournaments" class="py-5">
     <div class="container">
-        <h2 class="mb-4 text-center">Recommended Movies</h2>
+        <h2 class="mb-4 text-center">Recommended Tournaments</h2>
         <div class="row row-cols-1 row-cols-md-3 g-4">
-            {% for movie in movies %}
+            {% for tournament in tournaments %}
             <div class="col">
                 <div class="card shadow-sm h-100">
-                    <img src="/static/movie_posters/{{ movie.poster }}" class="card-img-top" style="height: 300px; object-fit: cover;">
+                    <img src="/static/tournament_posters/{{ tournament.poster }}" class="card-img-top" style="height: 300px; object-fit: cover;">
                     <div class="card-body">
-                        <h5 class="card-title"><a href="/select_theaters/{{ movie.id }}" class="text-decoration-none text-dark">{{ movie.title }}</a></h5>
-                        <p class="card-text">{{ movie.starring }}</p>
+                        <h5 class="card-title"><a href="/select_stadiums/{{ tournament.id }}" class="text-decoration-none text-dark">{{ tournament.title }}</a></h5>
+                        <p class="card-text">{{ tournament.starring }}</p>
                     </div>
                 </div>
             </div>
@@ -168,8 +168,8 @@ Home
                 <div class="card shadow-sm h-100">
                     <img src="/static/events/event3.jpeg" class="card-img-top" alt="Event 3" style="height: 200px; object-fit: cover;">
                     <div class="card-body">
-                        <h5 class="card-title">Theater Play</h5>
-                        <p class="card-text">Experience the drama and excitement of live theater.</p>
+                        <h5 class="card-title">Stadium Play</h5>
+                        <p class="card-text">Experience the drama and excitement of live Stadium.</p>
                     </div>
                     <div class="card-footer">
                         <small class="text-muted">Date: September 10, 2024</small>
@@ -186,7 +186,7 @@ Home
         <div class="row align-items-center">
             <div class="col-lg-6 mb-4 mb-lg-0">
                 <h2 class="mb-4">About Bookmyshow</h2>
-                <p class="lead">Bookmyshow is your go-to platform for discovering and booking the latest movies and events in your city. Our mission is to provide you with an easy and convenient way to enjoy the best entertainment experiences.</p>
+                <p class="lead">Bookmyshow is your go-to platform for discovering and booking the latest tournaments and events in your city. Our mission is to provide you with an easy and convenient way to enjoy the best entertainment experiences.</p>
             </div>
             <div class="col-lg-6">
                 <img src="/static/banners/about.png" class="img-fluid rounded shadow" alt="About Image" style="height: 300px; object-fit: cover;">

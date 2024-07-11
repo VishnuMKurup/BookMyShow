@@ -15,13 +15,13 @@ My Bookings
         <div class="collapse navbar-collapse d-md-flex justify-content-md-end" id="navbarNavDropdown">
             <ul class="navbar-nav mr-auto">
                 {% if user.is_authenticated %}
-                    {% if user.is_theatre_admin %}
+                    {% if user.is_tournament_admin %}
                         <li class="nav-item">
-                            <a class="nav-link" href="/my_theaters">Theater</a>
+                            <a class="nav-link" href="/my_stadiums">Theater</a>
                         </li>
                     {% elif user.is_super_admin %}
                         <li class="nav-item">
-                            <a class="nav-link" href="/movies">Movies</a>
+                            <a class="nav-link" href="/tournaments">Tournaments</a>
                         </li>
                     {% else %}
                         <li class="nav-item">
@@ -31,7 +31,7 @@ My Bookings
                 {% endif %}
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        {% if user.is_theatre_admin %}
+                        {% if user.is_tournament_admin %}
                             {{ user.name }}, Theatre Admin
                         {% elif user.is_super_admin %}
                             {{ user.name }}, Super Admin
@@ -71,7 +71,7 @@ My Bookings
                     <div class="card shadow-sm h-100">
                         <div class="card-body">
                             <p class="card-text">ID <strong>{{ ticket.id }}</strong></p>
-                            <h5 class="card-title"><div class="fw-bold">{{ ticket.movie_name }}</div></h5>
+                            <h5 class="card-title"><div class="fw-bold">{{ ticket.tournament_name }}</div></h5>
                             <p class="card-text">
                                 <a href="{{ ticket.theater_address_link }}" target="_blank" class="text-decoration-none text-dark">
                                     {{ ticket.theater_name }}, {{ ticket.theater_address }}

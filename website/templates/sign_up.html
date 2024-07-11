@@ -16,11 +16,11 @@ Sign Up
       <ul class="navbar-nav navbar-nav mr-auto">
         {% if user.is_authenticated %}
         <li class="nav-item">
-          {% if user.is_theatre_admin %}
-            <a class="nav-link" href="/my_theaters">Theater</a>
+          {% if user.is_tournament_admin %}
+            <a class="nav-link" href="/my_stadiums">Theater</a>
         </li>
         {% elif user.is_super_admin %}
-        <a class="nav-link" href="movies">Movies</a>
+        <a class="nav-link" href="tournaments">Tournaments</a>
         {% else %}
         <a class="nav-link" href="my_tickets">My Bookings</a>
         {% endif %}
@@ -29,7 +29,7 @@ Sign Up
         {% if user.is_authenticated %}
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            {% if user.is_theatre_admin %}
+            {% if user.is_tournament_admin %}
               {{ user.name }}, Theatre Admin
             {% elif user.is_super_admin %}
               {{ user.name }}, Super Admin
@@ -93,7 +93,7 @@ Sign Up
           <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp">
         </div>
         <div class="form-check">
-          <input class="form-check-input" type="checkbox" name="user_type" value="theatre_admin" id="flexCheckDefault">
+          <input class="form-check-input" type="checkbox" name="user_type" value="tournament_admin" id="flexCheckDefault">
           <label class="form-check-label" for="flexCheckDefault">
             Theatre Admin
           </label>

@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %} 
-Theaters 
+Stadiums 
 {% endblock %}
 
 {% block content %}
@@ -16,18 +16,18 @@ Theaters
       <ul class="navbar-nav">
         {% if user.is_authenticated %}
         <li class="nav-item">
-          {% if user.is_theatre_admin %}
-            <a class="nav-link" href="/my_theaters">Theaters</a>
+          {% if user.is_tournament_admin %}
+            <a class="nav-link" href="/tournaments">Tournament</a>
           {% elif user.is_super_admin %}
-            <a class="nav-link" href="/movies">Movies</a>
+            <a class="nav-link" href="/my_stadiums">Stadiums</a>
           {% else %}
             <a class="nav-link" href="/my_tickets">My Bookings</a>
           {% endif %}
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            {% if user.is_theatre_admin %}
-              {{ user.name }}, Theatre Admin
+            {% if user.is_tournament_admin %}
+              {{ user.name }}, Stadium Admin
             {% elif user.is_super_admin %}
               {{ user.name }}, Super Admin
             {% else %}
@@ -68,23 +68,23 @@ Theaters
       <div class="container-fluid">
         <div class="row mb-4">
           <div class="col-10">
-            <h5 class="fw-bold">My Theaters</h5>
+            <h5 class="fw-bold">My Stadiums</h5>
           </div>
           <div class="col-2 text-end">
-            <a href="/add_theaters" class="btn btn-outline-dark btn-sm">Add Theaters</a>
+            <a href="/add_stadiums" class="btn btn-outline-dark btn-sm">Add Stadiums</a>
           </div>
         </div>
       </div>
       <div class="container-fluid">
         <div class="list-group shadow">
-          {% for theater in user.theaters %}
+          {% for stadium in user.stadium %}
             <a href="#" class="list-group-item list-group-item-action">
               <div class="d-flex w-100 justify-content-between">
-                <h5 class="mb-1">{{ theater.name }}</h5>
-                <small>{{ theater.city }}</small>
+                <h5 class="mb-1">{{ stadium.name }}</h5>
+                <small>{{ stadium.city }}</small>
               </div>
-              <p class="mb-1">{{ theater.address }}</p>
-              <small class="text-muted">Capacity: {{ theater.capacity }}</small>
+              <p class="mb-1">{{ stadium.address }}</p>
+              <small class="text-muted">Capacity: {{ stadium.capacity }}</small>
             </a>
           {% endfor %}
         </div>
@@ -98,20 +98,20 @@ Theaters
             <h5 class="fw-bold">My Shows</h5>
           </div>
           <div class="col-2 text-end">
-            <a href="/add_shows" class="btn btn-outline-dark btn-sm">Add Shows</a>
+            <a href="/add_matches" class="btn btn-outline-dark btn-sm">Add Matches</a>
           </div>
         </div>
       </div>
       <div class="container-fluid">
         <div class="list-group shadow">
-          {% for show in user.shows %}
-            <a href="/show_tickets/{{ show.id }}" class="list-group-item list-group-item-action">
+          {% for match in user.matches %}
+            <a href="/show_tickets/{{ match.id }}" class="list-group-item list-group-item-action">
               <div class="d-flex w-100 justify-content-between">
-                <h5 class="mb-1">{{ show.movie }}</h5>
-                <small>{{ show.datetime_screened }}</small>
+                <h5 class="mb-1">{{ match.tournament }}</h5>
+                <small>{{ match.datetime_screened }}</small>
               </div>
-              <p class="mb-1">{{ show.theater }}</p>
-              <small class="text-muted">Seats Available: {{ show.seats_available }}</small>
+              <p class="mb-1">{{ match.stadium }}</p>
+              <small class="text-muted">Seats Available: {{ match.seats_available }}</small>
             </a>
           {% endfor %}
         </div>

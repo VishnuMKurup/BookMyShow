@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %}
-Movies
+Tournaments
 {% endblock %}
 
 {% block content %}
@@ -16,10 +16,10 @@ Movies
       <ul class="navbar-nav">
         {% if user.is_authenticated %}
         <li class="nav-item">
-          {% if user.is_theatre_admin %}
-            <a class="nav-link" href="/my_theaters">Theater</a>
+          {% if user.is_tournament_admin %}
+            <a class="nav-link" href="/my_stadiums">Theater</a>
           {% elif user.is_super_admin %}
-            <a class="nav-link active" href="/movies">Movies</a>
+            <a class="nav-link active" href="/stadiums">Stadium</a>
           {% else %}
             <a class="nav-link" href="/my_tickets">My Bookings</a>
           {% endif %}
@@ -28,10 +28,10 @@ Movies
         {% if user.is_authenticated %}
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            {% if user.is_theatre_admin %}
-              {{ user.name }}, Theatre Admin
+            {% if user.is_tournament_admin %}
+              {{ user.name }}, Tournament Admin
             {% elif user.is_super_admin %}
-              {{ user.name }}, Super Admin
+              {{ user.name }}, Stadium Admin
             {% else %}
               {{ user.name }}
             {% endif %}
@@ -81,23 +81,23 @@ Movies
   {% endwith %}
 </div>
 
-<!-- Movies List -->
+<!-- Tournaments List -->
 <div class="container mt-5">
   <div class="d-flex justify-content-between align-items-center">
-    <h3 class="fw-bold">Movies</h3>
-    <a href="/add_movies" class="btn btn-outline-primary">Add Movies</a>
+    <h3 class="fw-bold">Tournaments</h3>
+    <a href="/add_tournaments" class="btn btn-outline-primary">Add Tournaments</a>
   </div>
   <div class="row row-cols-1 row-cols-md-4 g-4 mt-4">
-    {% for movie in user.movies %}
+    {% for tournament in user.tournaments %}
     <div class="col">
       <div class="card h-100 shadow-sm">
-        <img src="/static/movie_posters/{{ movie.poster }}" class="card-img-top" alt="{{ movie.title }}">
+        <img src="/static/tournament_posters/{{ tournament.poster }}" class="card-img-top" alt="{{ tournament.title }}">
         <div class="card-body">
-          <h5 class="card-title">{{ movie.title }}</h5>
-          <p class="card-text">{{ movie.starring }}</p>
+          <h5 class="card-title">{{ tournament.title }}</h5>
+          <p class="card-text">{{ tournament.starring }}</p>
         </div>
         <div class="card-footer">
-          <a href="/update_movies/{{ movie.id }}" class="btn btn-outline-secondary btn-sm">Update</a>
+          <a href="/update_tournaments/{{ tournament.id }}" class="btn btn-outline-secondary btn-sm">Update</a>
         </div>
       </div>
     </div>

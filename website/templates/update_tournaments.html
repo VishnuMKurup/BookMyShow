@@ -1,7 +1,7 @@
 {% extends "base.html" %} 
 
 {% block title %} 
-Update Movie Details 
+Update Tournament Details 
 {% endblock %}
 
 {% block content %}
@@ -16,11 +16,11 @@ Update Movie Details
       <ul class="navbar-nav navbar-nav mr-auto">
         {% if user.is_authenticated %}
         <li class="nav-item">
-          {% if user.is_theatre_admin %}
-            <a class="nav-link" href="/my_theaters">Theater</a>
+          {% if user.is_tournament_admin %}
+            <a class="nav-link" href="/my_stadiums">Theater</a>
         </li>
         {% elif user.is_super_admin %}
-        <a class="nav-link" href="/movies">Movies</a>
+        <a class="nav-link" href="/tournaments">Tournaments</a>
         {% else %}
         <a class="nav-link" href="/my_tickets">My Bookings</a>
         {% endif %}
@@ -29,7 +29,7 @@ Update Movie Details
         {% if user.is_authenticated %}
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            {% if user.is_theatre_admin %}
+            {% if user.is_tournament_admin %}
               {{ user.name }}, Theatre Admin
             {% elif user.is_super_admin %}
               {{ user.name }}, Super Admin
@@ -80,24 +80,24 @@ Update Movie Details
  {% endif %}
  {% endwith %}
 
-<h3 style="display: flex; justify-content: center;align-items: center;padding-top:5%; font-weight:700">Update Movie</h3>
+<h3 style="display: flex; justify-content: center;align-items: center;padding-top:5%; font-weight:700">Update Tournament</h3>
 <div class="form" style="display: flex; justify-content: center;align-items: center;padding-top:10px">
 <form method = "POST" enctype="multipart/form-data">
     <div class="mb-3">
       <label for="title" class="form-label">Title</label>
-      <input type="Text" class="form-control" placeholder="Title of the movie" name="title" value= "{{ movie.title }}" >
+      <input type="Text" class="form-control" placeholder="Title of the tournament" name="title" value= "{{ tournament.title }}" >
     </div>
     <div class="mb-3">
       <label for="starring" class="form-label">Starring</label>
-      <input type="Text" class="form-control" placeholder="Lead cast" name="starring" value="{{ movie.starring }}">
+      <input type="Text" class="form-control" placeholder="Lead cast" name="starring" value="{{ tournament.starring }}">
     </div>
     <div class="mb-3">
         <label for="production_house" class="form-label">Production</label>
-        <input type="Text" class="form-control" placeholder="Production_house" name="production_house" value = "{{ movie.production_house }}">
+        <input type="Text" class="form-control" placeholder="Production_house" name="production_house" value = "{{ tournament.production_house }}">
     </div>
     <div class="mb-3">
         <label for="poster" class="form-label">Poster</label>
-        <input type="file" class="form-control" accept="image/*" placeholder="Upload New Image" name="poster" value="{{ movie.poster }}" >
+        <input type="file" class="form-control" accept="image/*" placeholder="Upload New Image" name="poster" value="{{ tournament.poster }}" >
     </div>
     <button type="submit" class="btn btn-primary ">Update</button>
 </form>

@@ -59,7 +59,7 @@ def add_tournaments():
 @views.route('/update_tournaments/<int:id>', methods = ['POST', 'GET'])
 @login_required
 def update_tournaments(id):
-    if current_user.is_super_admin == True:
+    if current_user.is_super_admin == True or current_user.is_tournament_admin:
         tournament_to_update = Tournament.query.get(int(id))
         if request.method == 'POST':
             tournament_to_update.poster = save_images(request.files['poster'])
@@ -118,7 +118,7 @@ def add_stadiums():
                 db.session.add(new_stadium)
                 db.session.commit()
 
-                flash('Your Theater is being added', category='success')
+                flash('Your Stadium is being added', category='success')
                 return redirect(url_for('views.my_stadiums'))
             else:
                 flash('Make sure all the fields are filled', category='error')

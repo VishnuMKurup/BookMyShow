@@ -17,7 +17,7 @@ Update Tournament Details
         {% if user.is_authenticated %}
         <li class="nav-item">
           {% if user.is_tournament_admin %}
-            <a class="nav-link" href="/my_stadiums">Theater</a>
+            <a class="nav-link" href="/my_stadiums">Stadium</a>
         </li>
         {% elif user.is_super_admin %}
         <a class="nav-link" href="/tournaments">Tournaments</a>
@@ -88,11 +88,11 @@ Update Tournament Details
       <input type="Text" class="form-control" placeholder="Title of the tournament" name="title" value= "{{ tournament.title }}" >
     </div>
     <div class="mb-3">
-      <label for="starring" class="form-label">Starring</label>
+      <label for="icon" class="form-label">Icon Player</label>
       <input type="Text" class="form-control" placeholder="Lead cast" name="starring" value="{{ tournament.starring }}">
     </div>
     <div class="mb-3">
-        <label for="production_house" class="form-label">Production</label>
+        <label for="organizer" class="form-label">Organizer</label>
         <input type="Text" class="form-control" placeholder="Production_house" name="production_house" value = "{{ tournament.production_house }}">
     </div>
     <div class="mb-3">

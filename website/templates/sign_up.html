@@ -17,7 +17,7 @@ Sign Up
         {% if user.is_authenticated %}
         <li class="nav-item">
           {% if user.is_tournament_admin %}
-            <a class="nav-link" href="/my_stadiums">Theater</a>
+            <a class="nav-link" href="/my_stadiums">Stadium</a>
         </li>
         {% elif user.is_super_admin %}
         <a class="nav-link" href="tournaments">Tournaments</a>

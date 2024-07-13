@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %} 
-Add Stadiums 
+Add Stadium
 {% endblock %}
 
 {% block content %}
@@ -17,7 +17,7 @@ Add Stadiums
                     {% if user.is_authenticated %}
                         <li class="nav-item">
                             {% if user.is_tournament_admin %}
-                                <a class="nav-link active" href="/my_stadiums">Theater</a>
+                                <a class="nav-link active" href="/my_stadiums">Stadium</a>
                             {% elif user.is_super_admin %}
                                 <a class="nav-link" href="/tournaments">Tournaments</a>
                             {% else %}
@@ -68,7 +68,7 @@ Add Stadiums
                 <form method="POST">
                     <div class="mb-3">
                         <label for="name" class="form-label">Name</label>
-                        <input type="text" class="form-control" placeholder="Name of your theater" name="name" required>
+                        <input type="text" class="form-control" placeholder="Name of your Stadium" name="name" required>
                     </div>
                     <div class="mb-3">
                         <label for="address" class="form-label">Address</label>
